@@ -9,10 +9,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class MyBatisUtil {
-	// factory 实例化的过程是一个很费性能的过程
-	// 保证有且仅有一个factory
-	private static SqlSessionFactory factory;
+	// 3. factory实例化的过程是一个比较费性能的过程，做项目的时候都是保证有且仅有一个factory，因为没必要频繁创建工厂
+	private static SqlSessionFactory factory; //2.静态代码块调用的东西也是静态的，所以这里是 static
 	private static ThreadLocal<SqlSession> tl = new ThreadLocal<>();
+	// 1. 希望类在加载的时候就会产生factory对象，所以用静态块
 	static {
 		try {
 			InputStream resourceAsStream = Resources.getResourceAsStream("mybatis.xml");
